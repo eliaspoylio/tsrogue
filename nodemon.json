@@ -1,0 +1,7 @@
+{
+    "watch": [
+        "src/index.ts"
+    ],
+    "exec": "tsc src/*.ts && browserify src/index.js > build/bundle.js && node server.js",
+    "ext": "js, json, ts, proto"
+}
