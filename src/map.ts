@@ -1,3 +1,5 @@
+import { deepFreeze } from "./utils"
+
 export type Level = {
     map: Tile[][],
 }
@@ -6,34 +8,35 @@ export type Point = {
     y: number
 }
 
-export type Tile =
-    | Wall
-    | Floor
+export type Tile = Wall | Floor
 
 export type Wall = {
     wall: boolean
-    symbol: string
-}
+    symbol?: string
+} & Visible & Seen
+
 export type Floor = {
     floor: boolean
-    symbol: string
-}
+    symbol?: string
+} & Visible & Seen
+
 export type Player = {
-    symbol: string
+    symbol?: string
     location: Point
 }
 
+interface Visible { visible?: boolean }
+interface Seen { seen?: boolean }
+
+/** 
+ * Check if tile is of type Floor.
+ * @example
+ * isFloor(tile)
+*/
 export function isFloor(x: Tile): x is Floor {
     let is = ("floor" in x)
     return is
 }
-
-/*
-export function isW(x: Tile): boolean {
-    let is = (x === wall)
-    return is
-}
-*/
 
 /** 
  * Check if tile is of type Wall.
@@ -45,16 +48,17 @@ export function isWall(x: Tile): x is Wall {
     return is;
 }
 
-export const movePlayer = (player: Player, x: number, y: number, tiles: Tile[][]): Player => {
-    let n = player
+export const movePlayer = (player: Player, x: number, y: number, tiles: any[][]): Player => {
+    //deepFreeze(player)
+    let n = player;
     let px = player.location.x + x;
     let py = player.location.y + y;
     if (isWall(tiles[px][py])) {
         return player;
     }
     else {
-        n.location.x = px;
-        n.location.y = py;
+        player.location.x = px;
+        player.location.y = py;
         return n;
     }
 }

@@ -1,6 +1,7 @@
 {
     "watch": [
-        "src/index.ts"
+        "src/index.ts",
+        "src/raycast.ts"
     ],
     "exec": "tsc src/*.ts && browserify src/index.js > build/bundle.js && node server.js",
     "ext": "js, json, ts, proto"

@@ -1,7 +1,7 @@
 import { test } from 'uvu';
 import * as assert from 'uvu/assert';
 
-import { isFloor, isWall, movePlayer, Player } from '../src/utilities'
+import { isFloor, isWall, movePlayer, Player } from '../src/map'
 
 const wall = { wall: true, symbol: '▓' }
 const floor = { floor: true, symbol: '░' }
